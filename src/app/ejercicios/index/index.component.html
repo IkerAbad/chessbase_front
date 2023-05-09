@@ -1,0 +1,88 @@
+<div class="container">
+  <h1>Lista de ejercicios</h1>
+
+  <a href="#" routerLink="/ejercicios/create/" class="btn btn-success">Crear ejercicio</a>
+
+  <div *ngFor="let pet of ejercicioses" class="row">
+    <div class="col-md">
+      <div class="card">
+        <img class="card-img-top" src="image.jpg" />
+        <!-- Sustituir despues {{pet.image ??}}-->
+        <div class="card-body">
+          <h4 class="card-title">{{ pet.titulo }}</h4>
+          <p class="card-text">{{ pet.descripcion }}</p>
+
+          <a href="#" [routerLink]="['/ejercicios/', pet.id, 'view']" class="btn btn-primary">Ver</a>
+          <a href="#" [routerLink]="['/ejercicios/', pet.id, 'edit']" class="btn btn-success">Editar</a>
+
+          <button type="button" (click)="deleteejercicios(pet.id)" class="btn btn-danger">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AutorEditModalLabel" aria-hidden="true"
+    *ngIf="newejercicios" id="updateAutorModal">
+    <h1>Actualizar ejercicio</h1>
+    <a href="#" routerLink="/ejercicios/index" class="btn btn-success">Atrás</a>
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input formControlName="titulo" id="titulo" type="text" [(ngModel)]="newejercicios.titulo"
+          class="form-control" />
+        <div *ngIf="f['titulo'].touched && f['titulo'].invalid" class="alert alert-danger">
+          <div *ngIf="f['titulo'].errors && f['titulo'].errors['required']">
+            ¡Introduce un título!
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea formControlName="descripcion" id="descripcion" type="text" [(ngModel)]="newejercicios.descripcion"
+          class="form-control">
+        </textarea>
+        <div *ngIf="f['descripcion'].touched && f['descripcion'].invalid" class="alert alert-danger">
+          <div *ngIf="f['descripcion'].errors && f['descripcion'].errors['required']">
+            ¡Introduce una descripción!
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="colaboradores">Colaboradores</label>
+        <textarea formControlName="colaboradores" id="colaboradores" type="text"
+          [(ngModel)]="newejercicios.colaboradores" class="form-control">
+          </textarea>
+        <div *ngIf="f['colaboradores'].touched && f['colaboradores'].invalid" class="alert alert-danger">
+          <div *ngIf="f['colaboradores'].errors && f['colaboradores'].errors['required']">
+            ¡Introduce algún colaborador!
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="categoria_id">Categoría</label>
+        <select formControlName="categoria_id" id="categoria" type="text" class="form-control">
+          <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">{{categoria.nombre}}</option>
+
+        </select>
+        <div *ngIf="f['categoria_id'].touched && f['categoria_id'].invalid" class="alert alert-danger">
+          <div *ngIf="f['categoria_id'].errors && f['categoria_id'].errors['required']">¡Introduce una categoría!</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="estado">Categoría</label>
+        <textarea formControlName="estado" id="estado" type="text" class="form-control"
+          [(ngModel)]="newejercicios.estadoejercicios" readonly>{{newejercicios.estadoejercicios}}</textarea>
+
+
+      </div>
+
+
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid" (click)="updateejercicios(newejercicios)">
+        Actualizar
+      </button>
+    </form>
+  </div>
+
+  <app-pagination (paginaEmitter)="goToPage($event)" [page]="page" [totalPages]="totalPages"
+    [totalElements]="totalElements"></app-pagination>

@@ -1,0 +1,13 @@
+<div *ngIf="totalElements" class="pagination">
+    <div *ngIf="page > 0" class="pagination__prev">
+        <a (click)="anterior()">Anterior</a></div>
+    <div class="pagination__text">
+    <p>Página {{page+1}} de {{totalPages}}</p>
+    <p>{{totalElements}} resultados</p>
+    </div>
+    <div *ngIf="page < totalPages-1" class="pagination__next">
+        <a (click)="siguiente()" >Siguiente</a>
+    </div>
+</div>
+
+

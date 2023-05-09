@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 style="margin-top: 5%;">Ver Ejercicio</h1>
+    
+    <div>
+        <strong>ID:</strong>
+        <p>{{ ejercicios.id }}</p>
+    </div>
+    
+    <div>
+        <strong>Título:</strong>
+        <p>{{ ejercicios.titulo }}</p>
+    </div>
+    
+    <div>
+        <strong>Descripción:</strong>
+        <p>{{ ejercicios.descripcion }}</p>
+    </div>
+    
+    <div style="margin-bottom: 5%;">
+        <strong>Destinatarios:</strong>
+        <p>{{ ejercicios.colaboradores }}</p>
+    </div>
+    <a style="color: white; background-color: forestgreen; margin-left: 5%;"href="#" routerLink="/ejercicios/index" class="btn">Atrás</a>
+</div>

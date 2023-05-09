@@ -1,0 +1,75 @@
+<div class="container">
+    <h1 style="margin-top: 5%;">Crear ejercicio</h1>
+         
+    <form [formGroup]="form" (ngSubmit)="submit()">
+   
+        <div style=" margin-top: 5%;" class="form-group">
+            <label for="titulo">Título:</label>
+            <input
+                formControlName="titulo"
+                id="titulo"
+                type="text"
+                class="form-control">
+            <div *ngIf="f['titulo'].touched && f['titulo'].invalid" class="alert alert-danger">
+            <div *ngIf="f['titulo'].errors && f['titulo'].errors['required']">Title is required.</div>
+            </div>
+        </div>
+   
+        <div class="form-group">
+            <label for="descipcion">Descripción</label>
+            <textarea
+                formControlName="descripcion"
+                id="descripcion"
+                type="text"
+                class="form-control">
+            </textarea>
+            <div *ngIf="f['descripcion'].touched && f['descripcion'].invalid" class="alert alert-danger">
+                <div *ngIf="f['descripcion'].errors && f['descripcion'].errors['required']">Descripcion is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="colaboradores">Destinatario</label>
+            <textarea
+                formControlName="colaboradores"
+                id="colaboradores"
+                type="text"
+                class="form-control">
+            </textarea>
+            <div *ngIf="f['colaboradores'].touched && f['colaboradores'].invalid" class="alert alert-danger">
+                <div *ngIf="f['colaboradores'].errors && f['colaboradores'].errors['required']">Destinatario is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="categoria_id">Categoría</label>
+            <select
+                formControlName="categoria_id"
+                id="categoria"
+                type="text"
+                class="form-control">
+                <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">{{categoria.nombre}}</option>
+                
+            </select>
+            <div *ngIf="f['categoria_id'].touched && f['categoria_id'].invalid" class="alert alert-danger">
+                <div *ngIf="f['categoria_id'].errors && f['categoria_id'].errors['required']">¡Introduce una categoría!</div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 5%;">
+            <label for="user_id">Usuario</label>
+            <textarea
+                formControlName="user_id"
+                id="user_id"
+                type="text"
+                class="form-control">
+            </textarea>            
+            <div *ngIf="f['user_id'].touched && f['user_id'].invalid" class="alert alert-danger">
+                <div *ngIf="f['user_id'].errors && f['user_id'].errors['required']">¡Introduce una categoría!</div>
+            </div>
+        </div>
+
+        <button style="color: white; background-color: forestgreen;" class="btn" (click)="submit()" type="submit" >Añadir</button>
+        <a style="color: white; background-color: forestgreen; margin-left: 5%;"href="#" routerLink="/ejercicios/index" class="btn">Atrás</a>
+    </form>
+</div>
