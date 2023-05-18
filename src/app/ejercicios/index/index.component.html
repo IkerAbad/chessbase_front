@@ -28,34 +28,34 @@
     <a href="#" routerLink="/ejercicios/index" class="btn btn-success">Atrás</a>
     <form [formGroup]="form">
       <div class="form-group">
-        <label for="titulo">Título</label>
-        <input formControlName="titulo" id="titulo" type="text" [(ngModel)]="newejercicios.title"
+        <label for="title">Título</label>
+        <input formControlName="title" id="title" type="text" [(ngModel)]="newejercicios.title"
           class="form-control" />
-        <div *ngIf="f['titulo'].touched && f['titulo'].invalid" class="alert alert-danger">
-          <div *ngIf="f['titulo'].errors && f['titulo'].errors['required']">
+        <div *ngIf="f['title'].touched && f['title'].invalid" class="alert alert-danger">
+          <div *ngIf="f['title'].errors && f['title'].errors['required']">
             ¡Introduce un título!
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label for="descripcion">Creador</label>
-        <textarea formControlName="descripcion" id="descripcion" type="text" [(ngModel)]="newejercicios.creator"
+        <label for="creator">Creador</label>
+        <textarea formControlName="creator" id="creator" type="text" [(ngModel)]="newejercicios.creator"
           class="form-control">
         </textarea>
-        <div *ngIf="f['descripcion'].touched && f['descripcion'].invalid" class="alert alert-danger">
-          <div *ngIf="f['descripcion'].errors && f['descripcion'].errors['required']">
-            ¡Introduce una descripción!
+        <div *ngIf="f['creator'].touched && f['creator'].invalid" class="alert alert-danger">
+          <div *ngIf="f['creator'].errors && f['creator'].errors['required']">
+            ¡Introduce al creador!
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label for="colaboradores">Número de jugadores</label>
-        <textarea formControlName="colaboradores" id="colaboradores" type="text"
+        <label for="nPlayers">Número de jugadores</label>
+        <textarea formControlName="nPlayers" id="nPlayers" type="text"
           [(ngModel)]="newejercicios.nPlayers" class="form-control">
           </textarea>
-        <div *ngIf="f['colaboradores'].touched && f['colaboradores'].invalid" class="alert alert-danger">
-          <div *ngIf="f['colaboradores'].errors && f['colaboradores'].errors['required']">
-            ¡Introduce algún colaborador!
+        <div *ngIf="f['nPlayers'].touched && f['nPlayers'].invalid" class="alert alert-danger">
+          <div *ngIf="f['nPlayers'].errors && f['nPlayers'].errors['required']">
+            ¡Introduce el número de jugadores!
           </div>
         </div>
       </div>
