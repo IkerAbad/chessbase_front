@@ -9,8 +9,8 @@
         <img class="card-img-top" src="image.jpg" />
         <!-- Sustituir despues {{pet.image ??}}-->
         <div class="card-body">
-          <h4 class="card-title">{{ pet.titulo }}</h4>
-          <p class="card-text">{{ pet.descripcion }}</p>
+          <h4 class="card-title">{{ pet.title }}</h4>
+          <p class="card-text">{{ pet.creator }}</p>
 
           <a href="#" [routerLink]="['/ejercicios/', pet.id, 'view']" class="btn btn-primary">Ver</a>
           <a href="#" [routerLink]="['/ejercicios/', pet.id, 'edit']" class="btn btn-success">Editar</a>
@@ -29,7 +29,7 @@
     <form [formGroup]="form">
       <div class="form-group">
         <label for="titulo">Título</label>
-        <input formControlName="titulo" id="titulo" type="text" [(ngModel)]="newejercicios.titulo"
+        <input formControlName="titulo" id="titulo" type="text" [(ngModel)]="newejercicios.title"
           class="form-control" />
         <div *ngIf="f['titulo'].touched && f['titulo'].invalid" class="alert alert-danger">
           <div *ngIf="f['titulo'].errors && f['titulo'].errors['required']">
@@ -38,8 +38,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea formControlName="descripcion" id="descripcion" type="text" [(ngModel)]="newejercicios.descripcion"
+        <label for="descripcion">Creador</label>
+        <textarea formControlName="descripcion" id="descripcion" type="text" [(ngModel)]="newejercicios.creator"
           class="form-control">
         </textarea>
         <div *ngIf="f['descripcion'].touched && f['descripcion'].invalid" class="alert alert-danger">
@@ -49,9 +49,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="colaboradores">Colaboradores</label>
+        <label for="colaboradores">Número de jugadores</label>
         <textarea formControlName="colaboradores" id="colaboradores" type="text"
-          [(ngModel)]="newejercicios.colaboradores" class="form-control">
+          [(ngModel)]="newejercicios.nPlayers" class="form-control">
           </textarea>
         <div *ngIf="f['colaboradores'].touched && f['colaboradores'].invalid" class="alert alert-danger">
           <div *ngIf="f['colaboradores'].errors && f['colaboradores'].errors['required']">
@@ -59,24 +59,6 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="categoria_id">Categoría</label>
-        <select formControlName="categoria_id" id="categoria" type="text" class="form-control">
-          <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">{{categoria.nombre}}</option>
-
-        </select>
-        <div *ngIf="f['categoria_id'].touched && f['categoria_id'].invalid" class="alert alert-danger">
-          <div *ngIf="f['categoria_id'].errors && f['categoria_id'].errors['required']">¡Introduce una categoría!</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="estado">Categoría</label>
-        <textarea formControlName="estado" id="estado" type="text" class="form-control"
-          [(ngModel)]="newejercicios.estadoejercicios" readonly>{{newejercicios.estadoejercicios}}</textarea>
-
-
-      </div>
-
 
       <button class="btn btn-primary" type="submit" [disabled]="!form.valid" (click)="updateejercicios(newejercicios)">
         Actualizar

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Categoria } from '../categoria';
 import { Ejercicios } from '../ejercicios';
 import { ejerciciossService } from '../ejercicios.service';
 
@@ -15,7 +14,6 @@ export class IndexComponent implements OnInit {
   newejercicios!: Ejercicios
   private router!: Router 
   form!: FormGroup;
-  categorias: Categoria[] = []
   
   //Paginacion
   page : number = 0
@@ -46,15 +44,10 @@ export class IndexComponent implements OnInit {
     this.ejercicios = data;
     console.log(this.ejercicios);
   }) */
-  this.ejerciciossService.getAllCategories().subscribe((data: Categoria[])=>{
-    this.categorias = data;
-  })
   this.form = new FormGroup({
-    titulo: new FormControl('', [Validators.required]),
-    descripcion: new FormControl('', Validators.required),
-    colaboradores: new FormControl('', Validators.required),
-    categoria_id: new FormControl('', Validators.required),
-    estado: new FormControl('',Validators.required)
+    title: new FormControl('', [Validators.required]),
+    creator: new FormControl('', Validators.required),
+    nPlayers: new FormControl('', Validators.required)
   });
 }
    

@@ -3,7 +3,6 @@ import { ejerciciossService } from '../ejercicios.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ejercicios } from '../ejercicios';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Categoria } from '../categoria';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -13,7 +12,6 @@ export class EditComponent implements OnInit {
   id!: number;
   ejercicios!: Ejercicios;
   form!: FormGroup;
-  categorias: Categoria[] 
   ejerciciosId!: Ejercicios
   /*------------------------------------------
 --------------------------------------------
@@ -26,7 +24,6 @@ Created constructor
     private router: Router
     
   ) {
-    this.categorias=[]
   }
   /**
    * Write code on Method
@@ -42,20 +39,12 @@ Created constructor
       
       
     });
-    this.ejerciciossService.getAllCategories().subscribe((data: Categoria[])=>{
-      this.categorias = data;
-      console.log(this.categorias);
-      
-      
 
-    }) 
     this.form = new FormGroup({
       id:new FormControl(this.id,),
-      titulo: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', Validators.required),
-      colaboradores: new FormControl('', Validators.required),
-      categoria_id: new FormControl('', Validators.required),
-      estado: new FormControl('',Validators.required)
+      title: new FormControl('', [Validators.required]),
+      creator: new FormControl('', Validators.required),
+      nPlayers: new FormControl('', Validators.required)
     });
   }
   /**

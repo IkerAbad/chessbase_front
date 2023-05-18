@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ejerciciossService } from '../ejercicios.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
-import { Categoria } from '../categoria';
       
 @Component({
   selector: 'app-create',
@@ -10,7 +9,6 @@ import { Categoria } from '../categoria';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-  categorias: Categoria[] =[]
   form!: FormGroup;
      
   /*------------------------------------------
@@ -29,17 +27,10 @@ export class CreateComponent implements OnInit {
    * @return response()
    */
   ngOnInit(): void {
-    this.ejerciciossService.getAllCategories().subscribe((data: Categoria[])=>{
-      this.categorias = data;
-      console.log(this.categorias);
-    }) 
-
     this.form = new FormGroup({
-      titulo: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', Validators.required),
-      colaboradores: new FormControl('', Validators.required),
-      categoria_id: new FormControl('', Validators.required),
-      user_id: new FormControl('',Validators.required)
+      title: new FormControl('', [Validators.required]),
+      creator: new FormControl('', Validators.required),
+      nplayers: new FormControl('', Validators.required)
     });
   }
      

@@ -75,10 +75,14 @@ export class ejerciciossService {
   }
 
 
+
+
+
+
   create(ejercicios:Ejercicios): Observable<any> {
 
   
-    return this.httpClient.post(this.apiURL + '/ejercicioses/create/'+ejercicios.categoria.id+'/'+ejercicios.user_id, JSON.stringify(ejercicios), this.httpOptions)
+    return this.httpClient.post(this.apiURL + '/exercises/', JSON.stringify(ejercicios), this.httpOptions)
 
   
 

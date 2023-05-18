@@ -4,68 +4,40 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
    
         <div style=" margin-top: 5%;" class="form-group">
-            <label for="titulo">Título:</label>
+            <label for="title">Título:</label>
             <input
-                formControlName="titulo"
-                id="titulo"
+                formControlName="title"
+                id="title"
                 type="text"
                 class="form-control">
-            <div *ngIf="f['titulo'].touched && f['titulo'].invalid" class="alert alert-danger">
-            <div *ngIf="f['titulo'].errors && f['titulo'].errors['required']">Title is required.</div>
+            <div *ngIf="f['title'].touched && f['title'].invalid" class="alert alert-danger">
+            <div *ngIf="f['title'].errors && f['title'].errors['required']">Title is required.</div>
             </div>
         </div>
    
         <div class="form-group">
-            <label for="descipcion">Descripción</label>
+            <label for="descipcion">Creador</label>
             <textarea
-                formControlName="descripcion"
-                id="descripcion"
+                formControlName="creator"
+                id="creator"
                 type="text"
                 class="form-control">
             </textarea>
-            <div *ngIf="f['descripcion'].touched && f['descripcion'].invalid" class="alert alert-danger">
-                <div *ngIf="f['descripcion'].errors && f['descripcion'].errors['required']">Descripcion is required.</div>
+            <div *ngIf="f['creator'].touched && f['creator'].invalid" class="alert alert-danger">
+                <div *ngIf="f['creator'].errors && f['creator'].errors['required']">Creador is required.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="colaboradores">Destinatario</label>
+            <label for="nplayers">Número de jugadores</label>
             <textarea
-                formControlName="colaboradores"
-                id="colaboradores"
+                formControlName="nplayers"
+                id="nplayers"
                 type="text"
                 class="form-control">
             </textarea>
-            <div *ngIf="f['colaboradores'].touched && f['colaboradores'].invalid" class="alert alert-danger">
-                <div *ngIf="f['colaboradores'].errors && f['colaboradores'].errors['required']">Destinatario is required.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="categoria_id">Categoría</label>
-            <select
-                formControlName="categoria_id"
-                id="categoria"
-                type="text"
-                class="form-control">
-                <option *ngFor="let categoria of categorias" [ngValue]="categoria.id">{{categoria.nombre}}</option>
-                
-            </select>
-            <div *ngIf="f['categoria_id'].touched && f['categoria_id'].invalid" class="alert alert-danger">
-                <div *ngIf="f['categoria_id'].errors && f['categoria_id'].errors['required']">¡Introduce una categoría!</div>
-            </div>
-        </div>
-        
-        <div style="margin-bottom: 5%;">
-            <label for="user_id">Usuario</label>
-            <textarea
-                formControlName="user_id"
-                id="user_id"
-                type="text"
-                class="form-control">
-            </textarea>            
-            <div *ngIf="f['user_id'].touched && f['user_id'].invalid" class="alert alert-danger">
-                <div *ngIf="f['user_id'].errors && f['user_id'].errors['required']">¡Introduce una categoría!</div>
+            <div *ngIf="f['nplayers'].touched && f['nplayers'].invalid" class="alert alert-danger">
+                <div *ngIf="f['nplayers'].errors && f['nplayers'].errors['required']">Número de jugadores is required.</div>
             </div>
         </div>
 
