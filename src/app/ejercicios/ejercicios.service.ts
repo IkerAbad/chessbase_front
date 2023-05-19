@@ -62,7 +62,7 @@ export class ejerciciossService {
 
   
 
-    return this.httpClient.get(this.apiURL + '/ejercicioses')
+    return this.httpClient.get(this.apiURL + '/exercises')
 
   
 
@@ -83,9 +83,6 @@ export class ejerciciossService {
 
   
     return this.httpClient.post(this.apiURL + '/exercises/', JSON.stringify(ejercicios), this.httpOptions)
-
-  
-
     .pipe(
       
       catchError(this.errorHandler)
@@ -110,7 +107,7 @@ export class ejerciciossService {
 
   
 
-    return this.httpClient.get(this.apiURL + '/ejercicioses/' + id)
+    return this.httpClient.get(this.apiURL + '/exercises/' + id)
 
   
 
@@ -135,22 +132,12 @@ export class ejerciciossService {
    */
 
   update(id:number, ejercicios:Ejercicios): Observable<any> {
-
-  
-
-    return this.httpClient.put(this.apiURL + '/ejercicioses/edit/' + id, JSON.stringify(ejercicios), this.httpOptions)
-
- 
-
+    return this.httpClient.put(this.apiURL + '/exercises/edit/' + id, JSON.stringify(ejercicios), this.httpOptions)
     .pipe( 
-
       catchError(this.errorHandler)
-
     )
 
   }
-
-       
 
   /**
 
@@ -164,7 +151,7 @@ export class ejerciciossService {
 
   delete(id:number){
 
-    return this.httpClient.delete(this.apiURL + '/ejercicioses/delete/' + id, this.httpOptions)
+    return this.httpClient.delete(this.apiURL + '/exercises/' + id, this.httpOptions)
 
   
 
@@ -205,7 +192,7 @@ export class ejerciciossService {
 
  }
  getDataPedidoPaginado(page: Number, numberOfElements: Number) {
-  const url = `${this.apiURL}/ejercicioses?page=${page}&size=${numberOfElements}`;
+  const url = `${this.apiURL}/exercises?page=${page}&size=${numberOfElements}`;
   return this.httpClient.get<any>(url).pipe(
 
     catchError(this.errorHandler)
@@ -213,24 +200,10 @@ export class ejerciciossService {
   )
 
 }
-  getAllCategories(): Observable<any> {
 
-  
-
-    return this.httpClient.get(this.apiURL + '/categorias')
-
-  
-
-    .pipe(
-
-      catchError(this.errorHandler)
-
-    )
-
-  }
   update2(ejercicios: Ejercicios): Observable<any>{
   
-    return this.httpClient.put(this.apiURL + '/ejercicioses/edit2/' , ejercicios, this.httpOptions)
+    return this.httpClient.put(this.apiURL + '/exercises/edit2/' , ejercicios, this.httpOptions)
   
   
     .pipe( 
