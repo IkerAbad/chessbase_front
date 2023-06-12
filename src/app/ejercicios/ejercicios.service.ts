@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Ejercicios } from './ejercicios';
 
@@ -11,29 +11,63 @@ import { Ejercicios } from './ejercicios';
 })
 export class ejerciciossService {
 
-  private apiURL ="http://localhost:8080";
-   /*------------------------------------------
+  private ejercicios: Ejercicios[] = [
+    {
+      id: 1,
+      title: "Ejercicio 1",
+      creator: "Creador 1",
+      nPlayers: "2"
+    },
+    {
+      id: 2,
+      title: "Ejercicio 2",
+      creator: "Creador 2",
+      nPlayers: "3"
+    },
+    {
+      id: 3,
+      title: "Ejercicio 3",
+      creator: "Creador 3",
+      nPlayers: "1"
+    },
+    {
+      id: 4,
+      title: "Ejercicio 4",
+      creator: "Creador 4",
+      nPlayers: "4"
+    },
+    {
+      id: 5,
+      title: "Ejercicio 5",
+      creator: "Creador 5",
+      nPlayers: "2"
+    }
+  ];
 
-  --------------------------------------------
 
-  Http Header Options
+  private apiURL = "http://localhost:8080";
+  /*------------------------------------------
 
-  --------------------------------------------
+ --------------------------------------------
 
-  --------------------------------------------*/
+ Http Header Options
+
+ --------------------------------------------
+
+ --------------------------------------------*/
 
   httpOptions = {
 
     headers: new HttpHeaders({
 
       'Content-Type': 'application/json',
-      'Accept':'*/*'
+      'Accept': '*/*'
 
     })
 
   }
 
-   
+
   /*------------------------------------------
 
   --------------------------------------------
@@ -46,8 +80,6 @@ export class ejerciciossService {
 
   constructor(private httpClient: HttpClient) { }
 
-    
-
   /**
 
    * Write code on Method
@@ -58,69 +90,17 @@ export class ejerciciossService {
 
    */
 
-  getAll(): Observable<any> {
-
-  
-
-    return this.httpClient.get(this.apiURL + '/exercises')
-
-  
-
-    .pipe(
-
-      catchError(this.errorHandler)
-
-    )
-
+  getAll(): Observable<Ejercicios[]> {
+    return of(this.ejercicios);
   }
 
-
-
-
-
-
-  create(ejercicios:Ejercicios): Observable<any> {
-
-  
-    return this.httpClient.post(this.apiURL + '/exercises/', JSON.stringify(ejercicios), this.httpOptions)
-    .pipe(
-      
-      catchError(this.errorHandler)
-
-    )
-
-  }  
-
-    
-
-  /**
-
-   * Write code on Method
-
-   *
-
-   * @return response()
-
-   */
-
-  find(id:number): Observable<any> {
-
-  
-
-    return this.httpClient.get(this.apiURL + '/exercises/' + id)
-
-  
-
-    .pipe(
-
-      catchError(this.errorHandler)
-
-    )
-
+  create(ejercicio: Ejercicios): Observable<Ejercicios> {
+    const maxId = this.ejercicios.reduce((max, ejercicio) => Math.max(max, ejercicio.id), 0);
+    ejercicio.id = maxId + 1;
+    this.ejercicios.push(ejercicio);
+    return of(ejercicio);
   }
 
-    
-
   /**
 
    * Write code on Method
@@ -131,11 +111,12 @@ export class ejerciciossService {
 
    */
 
-  update(id:number, ejercicios:Ejercicios): Observable<any> {
-    return this.httpClient.put(this.apiURL + '/exercises/edit/' + id, JSON.stringify(ejercicios), this.httpOptions)
-    .pipe( 
-      catchError(this.errorHandler)
-    )
+  find(id: number): Observable<Ejercicios> {
+    let elemento = this.ejercicios.find(e => e.id = id);
+    if (elemento==undefined){
+      elemento = {id: 0, title: '', creator: '', nPlayers: ''};
+    }
+    return of(elemento);
 
   }
 
@@ -149,21 +130,38 @@ export class ejerciciossService {
 
    */
 
-  delete(id:number){
+  update(id: number, ejercicio: Ejercicios): Observable<Ejercicios> {
+    const index = this.ejercicios.findIndex(e => e.id == id);
+    this.ejercicios[index].title = ejercicio.title;
+    this.ejercicios[index].creator = ejercicio.creator;
+    this.ejercicios[index].nPlayers = ejercicio.nPlayers;
 
-    return this.httpClient.delete(this.apiURL + '/exercises/' + id, this.httpOptions)
+    this.ejercicios[index].id = id;
 
-  
-
-    .pipe(
-
-      catchError(this.errorHandler)
-
-    )
+    return of(this.ejercicios[index]);
 
   }
 
-    
+  /**
+
+   * Write code on Method
+
+   *
+
+   * @return response()
+
+   */
+
+  delete(id: number): Observable<number> {
+    const nElementos = this.ejercicios.length;
+    this.ejercicios = this.ejercicios.filter(e => e.id != id);
+    const elementosActuales = this.ejercicios.length;
+
+    return of(nElementos - elementosActuales);
+
+  }
+
+
   /** 
 
    * Write code on Method
@@ -174,11 +172,11 @@ export class ejerciciossService {
 
    */
 
-   errorHandler(error:any) {
+  errorHandler(error: any) {
 
     let errorMessage = '';
 
-    if(error.error instanceof ErrorEvent) {
+    if (error.error instanceof ErrorEvent) {
 
       errorMessage = error.error.message;
 
@@ -190,27 +188,27 @@ export class ejerciciossService {
 
     return throwError(errorMessage);
 
- }
- getDataPedidoPaginado(page: Number, numberOfElements: Number) {
-  const url = `${this.apiURL}/exercises?page=${page}&size=${numberOfElements}`;
-  return this.httpClient.get<any>(url).pipe(
+  }
+  getDataPedidoPaginado(page: Number, numberOfElements: Number) {
+    const url = `${this.apiURL}/exercises?page=${page}&size=${numberOfElements}`;
+    return this.httpClient.get<any>(url).pipe(
 
-    catchError(this.errorHandler)
-
-  )
-
-}
-
-  update2(ejercicios: Ejercicios): Observable<any>{
-  
-    return this.httpClient.put(this.apiURL + '/exercises/edit2/' , ejercicios, this.httpOptions)
-  
-  
-    .pipe( 
-  
       catchError(this.errorHandler)
-  
+
     )
-   }
+
+  }
+
+  update2(ejercicios: Ejercicios): Observable<any> {
+
+    return this.httpClient.put(this.apiURL + '/exercises/edit2/', ejercicios, this.httpOptions)
+
+
+      .pipe(
+
+        catchError(this.errorHandler)
+
+      )
+  }
 
 }

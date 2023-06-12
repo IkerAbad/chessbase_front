@@ -11,97 +11,50 @@ import { ejerciciossService } from '../ejercicios.service';
 })
 export class IndexComponent implements OnInit {
   ejercicioses: Ejercicios[] = [];
-  newejercicios!: Ejercicios
-  private router!: Router 
   form!: FormGroup;
-  
+
   //Paginacion
-  page : number = 0
+  page: number = 0
   totalElements: number = 0
   totalPages: number = 0
   numResults: number = 10
 
-  constructor(public ejerciciossService: ejerciciossService) { }
+  constructor(private ejerciciossService: ejerciciossService, private router: Router) { }
 
-/**
-   * Write code on Method
-   *
-   * @return response()
-   */
- ngOnInit(): void {
+  /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+  ngOnInit(): void {
 
-  this.ejerciciossService.getDataPedidoPaginado(this.page,
-    this.numResults).subscribe((data )  =>{ //: { content: Ejercicios[]; size: Number; totalPages: Number; }
-    this.ejercicioses = data.content;
-    this.totalElements = data.size;
-    this.totalPages = data.totalPages;
-    console.log(data);
-    
+    this.ejerciciossService.getAll().subscribe((res: Ejercicios[]) => {
+      this.ejercicioses = res;
+      console.log('La variable ' + JSON.stringify(this.ejercicioses));
     });
-
-  this.getProductosByPage(this.page, this.numResults)
-  /*this.ejerciciossService.getAll().subscribe((data: Ejercicios[])=>{
-    this.ejercicios = data;
-    console.log(this.ejercicios);
-  }) */
-  this.form = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-    creator: new FormControl('', Validators.required),
-    nPlayers: new FormControl('', Validators.required)
-  });
-}
-   
-public onOpenModal(ejercicios: Ejercicios , mode: string): void {
-  
-  if(mode === 'edit'){
-   // document.getElementById('id02').style.display='block';
-      this.newejercicios=ejercicios;
-   }
-
-  
-}
-   
-/**
-   * Write code on Method
-   *
-   * @return response()
-   */
- deleteejercicios(id:number){
-  this.ejerciciossService.delete(id).subscribe(res => {
-       this.ejercicioses = this.ejercicioses.filter(item => item.id !== id);
-       console.log('Post deleted successfully!');
-       this.router.navigateByUrl('ejercicios/index');
-
-  })
-}
-public updateejercicios(ejercicios: Ejercicios): void {
-  console.log('ejercicios', ejercicios);
-   this.ejerciciossService.update2(ejercicios).subscribe(
-     (response: Ejercicios)=>{
-        this.ejerciciossService.getAll
-       }
-   )
- }
-get f() {
-  return this.form.controls;
-}
-
-//paginacion
-goToPage(event:any){
-  this.getProductosByPage(event.page,event.totalE );
   }
-   
-  getProductosByPage(page: Number, numberOfElements: Number) {
-    this.ejerciciossService.getDataPedidoPaginado(page,
-    numberOfElements).subscribe((data )  =>{ //: { content: Ejercicios[]; size: Number; totalPages: Number; }
-    this.ejercicioses = data.content;
-    this.totalElements = data.size;
-    this.totalPages = data.totalPages;
-    console.log(data);
-    
-    });
-    }
 
+  /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+  deleteejercicios(id: number) {
+    this.ejerciciossService.delete(id).subscribe(res => {
+      this.ejerciciossService.getAll().subscribe((datos: Ejercicios[]) => {
+        this.ejercicioses = datos;
+      });
+      alert('Has eliminado ' + res + ' ejercicio.');
+    })
+  }
 
+  get f() {
+    return this.form.controls;
+  }
+
+  irUpdateElemento(e: Ejercicios){
+    console.log(e);
+    this.router.navigate(['/ejercicios/', e.id, 'edit']);
+  }
 }
 

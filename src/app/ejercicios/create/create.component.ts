@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ejerciciossService } from '../ejercicios.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+import { Ejercicios } from '../ejercicios';
       
 @Component({
   selector: 'app-create',
@@ -10,7 +11,8 @@ import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 })
 export class CreateComponent implements OnInit {
   form!: FormGroup;
-     
+
+
   /*------------------------------------------
   --------------------------------------------
   Created constructor
@@ -50,7 +52,7 @@ export class CreateComponent implements OnInit {
    */
   submit(){
     console.log(this.form.value);
-    this.ejerciciossService.create(this.form.value).subscribe((res:any) => {
+    this.ejerciciossService.create(this.form.value).subscribe((res:Ejercicios) => {
          console.log('Ejercicios created successfully!');
          this.router.navigateByUrl('ejercicios/index');
     })

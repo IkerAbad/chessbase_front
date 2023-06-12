@@ -3,68 +3,21 @@
 
   <a href="#" routerLink="/ejercicios/create/" class="btn btn-success">Crear ejercicio</a>
 
-  <div *ngFor="let pet of ejercicioses" class="row">
+  <div *ngFor="let e of ejercicioses" class="row">
     <div class="col-md">
       <div class="card">
-        <img class="card-img-top" src="image.jpg" />
-        <!-- Sustituir despues {{pet.image ??}}-->
         <div class="card-body">
-          <h4 class="card-title">{{ pet.title }}</h4>
-          <p class="card-text">{{ pet.creator }}</p>
+          <h4 class="card-title">{{ e.title }}</h4>
+          <p class="card-text">{{ e.creator }}</p>
+          <p class="card-text">{{ e.nPlayers }}</p>
 
-          <a href="#" [routerLink]="['/ejercicios/', pet.id, 'view']" class="btn btn-primary">Ver</a>
-          <a href="#" [routerLink]="['/ejercicios/', pet.id, 'edit']" class="btn btn-success">Editar</a>
+          <div (click)="irUpdateElemento(e)" class="btn btn-primary">Ver</div>
+          <!-- <a href="#" [routerLink]="['/ejercicios/', e.id, 'edit']" class="btn btn-success">Editar</a> -->
 
-          <button type="button" (click)="deleteejercicios(pet.id)" class="btn btn-danger">
+          <button type="button" (click)="deleteejercicios(e.id)" class="btn btn-danger">
             Eliminar
           </button>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AutorEditModalLabel" aria-hidden="true"
-    *ngIf="newejercicios" id="updateAutorModal">
-    <h1>Actualizar ejercicio</h1>
-    <a href="#" routerLink="/ejercicios/index" class="btn btn-success">Atrás</a>
-    <form [formGroup]="form">
-      <div class="form-group">
-        <label for="title">Título</label>
-        <input formControlName="title" id="title" type="text" [(ngModel)]="newejercicios.title"
-          class="form-control" />
-        <div *ngIf="f['title'].touched && f['title'].invalid" class="alert alert-danger">
-          <div *ngIf="f['title'].errors && f['title'].errors['required']">
-            ¡Introduce un título!
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="creator">Creador</label>
-        <textarea formControlName="creator" id="creator" type="text" [(ngModel)]="newejercicios.creator"
-          class="form-control">
-        </textarea>
-        <div *ngIf="f['creator'].touched && f['creator'].invalid" class="alert alert-danger">
-          <div *ngIf="f['creator'].errors && f['creator'].errors['required']">
-            ¡Introduce al creador!
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="nPlayers">Número de jugadores</label>
-        <textarea formControlName="nPlayers" id="nPlayers" type="text"
-          [(ngModel)]="newejercicios.nPlayers" class="form-control">
-          </textarea>
-        <div *ngIf="f['nPlayers'].touched && f['nPlayers'].invalid" class="alert alert-danger">
-          <div *ngIf="f['nPlayers'].errors && f['nPlayers'].errors['required']">
-            ¡Introduce el número de jugadores!
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-primary" type="submit" [disabled]="!form.valid" (click)="updateejercicios(newejercicios)">
-        Actualizar
-      </button>
-    </form>
-  </div>
-
-  <app-pagination (paginaEmitter)="goToPage($event)" [page]="page" [totalPages]="totalPages"
-    [totalElements]="totalElements"></app-pagination>
