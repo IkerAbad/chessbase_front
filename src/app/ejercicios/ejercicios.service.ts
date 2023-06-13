@@ -11,7 +11,7 @@ import { Ejercicios } from './ejercicios';
 })
 export class ejerciciossService {
 
-  private ejercicios: Ejercicios[] = [
+  private ejercicios: Ejercicios[] = JSON.parse(localStorage.getItem('e') || '[]') || [
     {
       id: 1,
       title: "Ejercicio 1",
@@ -98,6 +98,7 @@ export class ejerciciossService {
     const maxId = this.ejercicios.reduce((max, ejercicio) => Math.max(max, ejercicio.id), 0);
     ejercicio.id = maxId + 1;
     this.ejercicios.push(ejercicio);
+    localStorage.setItem('e', JSON.stringify(this.ejercicios));
     return of(ejercicio);
   }
 
@@ -112,9 +113,9 @@ export class ejerciciossService {
    */
 
   find(id: number): Observable<Ejercicios> {
-    let elemento = this.ejercicios.find(e => e.id = id);
-    if (elemento==undefined){
-      elemento = {id: 0, title: '', creator: '', nPlayers: ''};
+    let elemento = this.ejercicios.find(e => e.id == id);
+    if (elemento == undefined) {
+      elemento = { id: 0, title: '', creator: '', nPlayers: '' };
     }
     return of(elemento);
 
@@ -135,9 +136,8 @@ export class ejerciciossService {
     this.ejercicios[index].title = ejercicio.title;
     this.ejercicios[index].creator = ejercicio.creator;
     this.ejercicios[index].nPlayers = ejercicio.nPlayers;
-
     this.ejercicios[index].id = id;
-
+    localStorage.setItem('e', JSON.stringify(this.ejercicios));
     return of(this.ejercicios[index]);
 
   }
@@ -156,7 +156,7 @@ export class ejerciciossService {
     const nElementos = this.ejercicios.length;
     this.ejercicios = this.ejercicios.filter(e => e.id != id);
     const elementosActuales = this.ejercicios.length;
-
+    localStorage.setItem('e', JSON.stringify(this.ejercicios));
     return of(nElementos - elementosActuales);
 
   }

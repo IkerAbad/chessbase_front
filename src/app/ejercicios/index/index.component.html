@@ -7,12 +7,13 @@
     <div class="col-md">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">{{ e.title }}</h4>
-          <p class="card-text">{{ e.creator }}</p>
-          <p class="card-text">{{ e.nPlayers }}</p>
+          <h4 class="card-title">Título: {{ e.title }}</h4>
+          <p class="card-text">Creador: {{ e.creator }}</p>
+          <p class="card-text">Número de jugadores: {{ e.nPlayers }}</p>
 
-          <div (click)="irUpdateElemento(e)" class="btn btn-primary">Ver</div>
-          <!-- <a href="#" [routerLink]="['/ejercicios/', e.id, 'edit']" class="btn btn-success">Editar</a> -->
+          <!-- <div (click)="irUpdateElemento(e)" class="btn btn-primary">Editar</div> -->
+          <a href="#" [routerLink]="['/ejercicios/', e.id, 'view']" class="btn btn-primary">Ver</a>
+          <a href="#" [routerLink]="['/ejercicios/', e.id, 'edit']" class="btn btn-success">Editar</a>
 
           <button type="button" (click)="deleteejercicios(e.id)" class="btn btn-danger">
             Eliminar

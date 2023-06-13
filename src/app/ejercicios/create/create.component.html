@@ -16,7 +16,7 @@
         </div>
    
         <div class="form-group">
-            <label for="descipcion">Creador</label>
+            <label for="creator">Creador</label>
             <textarea
                 formControlName="creator"
                 id="creator"
@@ -29,15 +29,15 @@
         </div>
 
         <div class="form-group">
-            <label for="nplayers">Número de jugadores</label>
+            <label for="nPlayers">Número de jugadores</label>
             <textarea
-                formControlName="nplayers"
-                id="nplayers"
+                formControlName="nPlayers"
+                id="nPlayers"
                 type="text"
                 class="form-control">
             </textarea>
-            <div *ngIf="f['nplayers'].touched && f['nplayers'].invalid" class="alert alert-danger">
-                <div *ngIf="f['nplayers'].errors && f['nplayers'].errors['required']">Número de jugadores is required.</div>
+            <div *ngIf="f['nPlayers'].touched && f['nPlayers'].invalid" class="alert alert-danger">
+                <div *ngIf="f['nPlayers'].errors && f['nPlayers'].errors['required']">Número de jugadores is required.</div>
             </div>
         </div>
 

@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       creator: new FormControl('', Validators.required),
-      nplayers: new FormControl('', Validators.required)
+      nPlayers: new FormControl('', Validators.required)
     });
   }
      
